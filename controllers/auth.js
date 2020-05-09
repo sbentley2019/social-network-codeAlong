@@ -30,3 +30,8 @@ exports.login = (req, res) => {
     return res.json({ token, user: { _id, name, email } });
   });
 };
+
+exports.logout = (req, res) => {
+  res.clearCookie("jwt");
+  return res.json({ message: "Logout successful!" });
+};
