@@ -20,9 +20,15 @@ mongoose.connection.on("error", (err) => {
   console.log(`DB connection error: ${err.message}`);
 });
 
+const postRoutes = require("./routes/post");
+const authRoutes = require("./routes/auth");
+
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressValidator());
+
+app.use("/", postRoutes());
+app.use("/", authRoutes());
 
 app.listen(PORT, () => console.log(`listening on port ${PORT}`));

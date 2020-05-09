@@ -23,5 +23,10 @@ exports.login = (req, res) => {
         error: "Email and password do not match.",
       });
     }
+
+    const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+    res.cookie("jwt", token, { expire: new Date() + 60 * 60 * 24 });
+    const { _id, name, email } = user;
+    return res.json({ token, user: { _id, name, email } });
   });
 };
