@@ -50,3 +50,13 @@ exports.updateUser = (req, res, next) => {
     return res.json({ user });
   });
 };
+
+exports.deleteUser = (req, res, next) => {
+  let user = req.user;
+  user.remove((err, user) => {
+    if (err) {
+      return res.status(400).json({ error: err });
+    }
+    return res.json({ message: "User deleted successfully" });
+  });
+};
