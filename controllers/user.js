@@ -27,3 +27,9 @@ exports.allUsers = (req, res) => {
     res.json({ users });
   }).select("name email updated created");
 };
+
+exports.getUser = (req, res) => {
+  req.user.salt = undefined;
+  req.user.hashed_password = undefined;
+  return res.json(req.user);
+};
