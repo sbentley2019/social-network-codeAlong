@@ -7,6 +7,7 @@ export default function Signup() {
     email: "",
     password: "",
     error: "",
+    open: false,
   });
 
   const signup = function (userData) {
@@ -17,12 +18,10 @@ export default function Signup() {
     e.preventDefault();
     const { name, email, password } = user;
 
-    // signup({ name, email, password }).then((res) => {
-    axios
-      .post("http://localhost:3001/auth/signup", { name, email, password })
+    signup({ name, email, password })
       .then((res) => {
         console.log(res);
-        setUser({ error: "", name: "", email: "", password: "" });
+        setUser({ error: "", name: "", email: "", password: "", open: true });
       })
       .catch((err) => {
         setUser({ ...user, error: err.response.data.error });
@@ -36,6 +35,11 @@ export default function Signup() {
     <div className="container">
       <h2 className="mt-5 mb-5">Signup</h2>
       {user.error && <div className="alert alert-primary">{user.error}</div>}
+      {user.open && (
+        <div className="alert alert-info">
+          New account is successfully created. Please Sign In.
+        </div>
+      )}
       <form onSubmit={submitForm}>
         <div className="form-group">
           <label className="text-muted">Name</label>
