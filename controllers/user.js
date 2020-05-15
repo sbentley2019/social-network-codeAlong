@@ -51,7 +51,7 @@ exports.updateUser = (req, res, next) => {
   });
 };
 
-exports.deleteUser = (req, res, next) => {
+exports.deleteUser = (req, res) => {
   let user = req.user;
   user.remove((err, user) => {
     if (err) {
