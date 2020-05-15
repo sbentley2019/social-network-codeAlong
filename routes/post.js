@@ -6,6 +6,7 @@ const {
   postById,
   isPoster,
   deletePost,
+  updatePost,
 } = require("../controllers/post");
 const { requireSignin } = require("../controllers/auth");
 const { userById } = require("../controllers/user");
@@ -20,6 +21,7 @@ module.exports = () => {
     createPostValidator
   );
   router.get("/posts/by/:userId", requireSignin, postByUser);
+  router.put("/post/:postId", requireSignin, isPoster, updatePost);
   router.delete("/post/:postId", requireSignin, isPoster, deletePost);
 
   router.param("userId", userById);

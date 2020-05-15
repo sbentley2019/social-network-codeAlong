@@ -35,7 +35,7 @@ exports.getUser = (req, res) => {
   return res.json(req.user);
 };
 
-exports.updateUser = (req, res, next) => {
+exports.updateUser = (req, res) => {
   let user = req.user;
   user = _.extend(user, req.body);
   user.updated = Date.now();
