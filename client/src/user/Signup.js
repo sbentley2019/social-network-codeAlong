@@ -8,6 +8,7 @@ export default function Signup() {
     password: "",
     error: "",
     open: false,
+    loading: false,
   });
 
   const signup = function (userData) {
@@ -16,15 +17,23 @@ export default function Signup() {
 
   const submitForm = function (e) {
     e.preventDefault();
+    setUser({ ...user, loading: true });
     const { name, email, password } = user;
 
     signup({ name, email, password })
       .then((res) => {
         console.log(res);
-        setUser({ error: "", name: "", email: "", password: "", open: true });
+        setUser({
+          error: "",
+          name: "",
+          email: "",
+          password: "",
+          open: true,
+          loading: false,
+        });
       })
       .catch((err) => {
-        setUser({ ...user, error: err.response.data.error });
+        setUser({ ...user, error: err.response.data.error, loading: false });
       });
   };
 
@@ -38,6 +47,11 @@ export default function Signup() {
       {user.open && (
         <div className="alert alert-info">
           New account is successfully created. Please Sign In.
+        </div>
+      )}
+      {user.loading && (
+        <div className="jumbotron text-center">
+          <h2>Loading...</h2>
         </div>
       )}
       <form onSubmit={submitForm}>
