@@ -1,27 +1,25 @@
 import React, { useState } from "react";
 import axios from "axios";
 
-export default function Signup() {
+export default function Login() {
   const [user, setUser] = useState({
-    name: "",
     email: "",
     password: "",
     error: "",
-    open: false,
   });
 
-  const signup = function (userData) {
-    return axios.post("http://localhost:3001/auth/signup", userData);
+  const login = function (userData) {
+    return axios.post("http://localhost:3001/auth/login", userData);
   };
 
   const submitForm = function (e) {
     e.preventDefault();
-    const { name, email, password } = user;
+    const { email, password } = user;
 
-    signup({ name, email, password })
+    login({ email, password })
       .then((res) => {
-        console.log(res);
-        setUser({ error: "", name: "", email: "", password: "", open: true });
+        console.log(res.data);
+        setUser({ error: "", email: "", password: "" });
       })
       .catch((err) => {
         setUser({ ...user, error: err.response.data.error });
@@ -33,24 +31,9 @@ export default function Signup() {
   };
   return (
     <div className="container">
-      <h2 className="mt-5 mb-5">Signup</h2>
+      <h2 className="mt-5 mb-5">Login</h2>
       {user.error && <div className="alert alert-danger">{user.error}</div>}
-      {user.open && (
-        <div className="alert alert-info">
-          New account is successfully created. Please Sign In.
-        </div>
-      )}
       <form onSubmit={submitForm}>
-        <div className="form-group">
-          <label className="text-muted">Name</label>
-          <input
-            type="text"
-            className="form-control"
-            name="name"
-            value={user.name}
-            onChange={(e) => handleUser(e)}
-          />
-        </div>
         <div className="form-group">
           <label className="text-muted">Email</label>
           <input
