@@ -10,13 +10,26 @@ const Menu = ({ history }) => {
 
   const logout = function (next) {
     if (typeof window !== "undefined") localStorage.removeItem("jwt");
+    next();
     return axios
       .get("/auth/logout")
       .then((res) => {
         console.log("logout returned", res);
-        next();
+        return res.json();
       })
       .catch((err) => console.log(err));
+  };
+
+  const isAuthenticated = function () {
+    if (typeof window == "undefined") {
+      return false;
+    }
+
+    if (localStorage.getItem("jwt")) {
+      return JSON.parse(localStorage.getItem("jwt"));
+    } else {
+      return false;
+    }
   };
 
   return (
@@ -27,33 +40,39 @@ const Menu = ({ history }) => {
             Home
           </Link>
         </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            style={selected(history, "/signup")}
-            to="/signup"
-          >
-            Signup
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link
-            className="nav-link"
-            style={selected(history, "/login")}
-            to="/login"
-          >
-            Login
-          </Link>
-        </li>
-        <li className="nav-item">
-          <a
-            className="nav-link"
-            style={{ cursor: "pointer", color: "#fff" }}
-            onClick={() => logout(() => history.push("/"))}
-          >
-            Logout
-          </a>
-        </li>
+
+        {!isAuthenticated() ? (
+          <>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={selected(history, "/signup")}
+                to="/signup"
+              >
+                Signup
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={selected(history, "/login")}
+                to="/login"
+              >
+                Login
+              </Link>
+            </li>
+          </>
+        ) : (
+          <li className="nav-item">
+            <a
+              className="nav-link"
+              style={{ cursor: "pointer", color: "#fff" }}
+              onClick={() => logout(() => history.push("/"))}
+            >
+              Logout
+            </a>
+          </li>
+        )}
       </ul>
     </div>
   );
