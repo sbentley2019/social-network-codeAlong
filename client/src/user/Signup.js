@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { signup } from "../auth";
 
 export default function Signup() {
   const [user, setUser] = useState({
@@ -10,10 +10,6 @@ export default function Signup() {
     open: false,
     loading: false,
   });
-
-  const signup = function (userData) {
-    return axios.post("http://localhost:3001/auth/signup", userData);
-  };
 
   const submitForm = function (e) {
     e.preventDefault();

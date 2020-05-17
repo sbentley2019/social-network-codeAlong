@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import { login, authenticate } from "../auth";
 import { Redirect } from "react-router-dom";
 
 export default function Login() {
@@ -10,17 +10,6 @@ export default function Login() {
     redirectToNext: false,
     loading: false,
   });
-
-  const login = function (userData) {
-    return axios.post("http://localhost:3001/auth/login", userData);
-  };
-
-  const authenticate = function (data, next) {
-    if (typeof window !== "undefined") {
-      localStorage.setItem("jwt", JSON.stringify(data));
-      next();
-    }
-  };
 
   const submitForm = function (e) {
     e.preventDefault();
