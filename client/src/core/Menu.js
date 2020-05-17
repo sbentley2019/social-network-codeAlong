@@ -1,12 +1,41 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-export default function Menu() {
+const Menu = ({ history }) => {
+  const selected = function (history, path) {
+    if (history.location.pathname === path) return { color: "#ff9900" };
+    else return { color: "#ffffff" };
+  };
+
   return (
     <div>
-      <Link to="/">Home</Link>
-      <Link to="/signup">Signup</Link>
-      <Link to="/login">Login</Link>
+      <ul className="nav nav-tabs bg-primary">
+        <li className="nav-item">
+          <Link className="nav-link" style={selected(history, "/")} to="/">
+            Home
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            style={selected(history, "/signup")}
+            to="/signup"
+          >
+            Signup
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link
+            className="nav-link"
+            style={selected(history, "/login")}
+            to="/login"
+          >
+            Login
+          </Link>
+        </li>
+      </ul>
     </div>
   );
-}
+};
+
+export default withRouter(Menu);
