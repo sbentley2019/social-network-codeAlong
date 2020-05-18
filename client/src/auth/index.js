@@ -1,11 +1,11 @@
 import axios from "axios";
 
 export const signup = function (userData) {
-  return axios.post("http://localhost:3001/auth/signup", userData);
+  return axios.post("/auth/signup", userData);
 };
 
 export const login = function (userData) {
-  return axios.post("http://localhost:3001/auth/login", userData);
+  return axios.post("/auth/login", userData);
 };
 
 export const authenticate = function (data, next) {
@@ -37,4 +37,12 @@ export const isAuthenticated = function () {
   } else {
     return false;
   }
+};
+
+export const getUser = function (userId) {
+  return axios.get(`/user/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${isAuthenticated().token}`,
+    },
+  });
 };
