@@ -21,8 +21,8 @@ export const logout = function (next) {
   return axios
     .get("/auth/logout")
     .then((res) => {
-      console.log("logout returned", res);
-      return res.json();
+      console.log("logout returned", res.data);
+      return res.data;
     })
     .catch((err) => console.log(err));
 };

@@ -8,8 +8,7 @@ export default function Users() {
   const [state, setState] = useState({ users: [] });
 
   useEffect(() => {
-    const token = isAuthenticated().token;
-    list(token)
+    list()
       .then((res) => {
         setState({ ...state, users: res.data.users });
       })

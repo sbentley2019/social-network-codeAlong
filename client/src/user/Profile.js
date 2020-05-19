@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import { isAuthenticated } from "../auth";
 import { getUser } from "./apiUser";
 import { Redirect, Link } from "react-router-dom";
+import user_avatar from "../images/user_avatar.png";
+import DeleteUser from "./DeleteUser";
 
 export default function Profile(props) {
   const [state, setState] = useState({
@@ -20,7 +22,7 @@ export default function Profile(props) {
         setState({ ...state, user: res.data, loading: false });
       })
       .catch((err) => setState({ ...state, redirectToLogin: true }));
-  }, []);
+  }, [props.match.params.userId]);
 
   if (state.redirectToLogin) {
     return <Redirect to="/login" />;
@@ -28,33 +30,38 @@ export default function Profile(props) {
 
   return (
     <div className="container">
+      <h2 className="mt-5 mb-5">Profile</h2>
       <div className="row">
         <div className="col-md-6">
-          <h2 className="mt-5 mb-5">Profile</h2>
-          <p>Hello {isAuthenticated().user.name}</p>
-          <p>Email: {isAuthenticated().user.email}</p>
+          <img
+            className="card-img-top"
+            src={user_avatar}
+            alt={state.user.name}
+            style={{ width: "100%", height: "15vw", objectFit: "cover" }}
+          />
+        </div>
+        <div className="col-md-6">
           {state.loading ? (
             <p>Loading...</p>
           ) : (
-            <p>{`Joined ${new Date(state.user.created).toDateString()}`}</p>
+            <>
+              <div className="lead">
+                <p>Hello {state.user.name}</p>
+                <p>Email: {state.user.email}</p>
+                <p>{`Joined ${new Date(state.user.created).toDateString()}`}</p>
+              </div>
+            </>
           )}
-        </div>
-        <div className="col-md-6">
           {isAuthenticated().user &&
             isAuthenticated().user._id === state.user._id && (
-              <div classname="d-inline-block">
+              <div className="d-inline-block">
                 <Link
-                  className="btn btn-raised btn-success mr-5 mt-5"
+                  className="btn btn-raised btn-success mr-5"
                   to={`/user/edit/`}
                 >
                   Edit Profile
                 </Link>
-                <Link
-                  className="btn btn-raised btn-danger mt-5"
-                  to={`/user/delete/`}
-                >
-                  delete Profile
-                </Link>
+                <DeleteUser userId={state.user._id} />
               </div>
             )}
         </div>

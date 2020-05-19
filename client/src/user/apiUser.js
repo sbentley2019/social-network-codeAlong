@@ -8,6 +8,14 @@ export const getUser = function (userId, token) {
   });
 };
 
-export const list = function (token) {
+export const list = function () {
   return axios.get("/user/");
+};
+
+export const remove = function (userId, token) {
+  return axios.delete(`/user/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
 };
