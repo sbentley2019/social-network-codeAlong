@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { signup } from "../auth";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
   const [user, setUser] = useState({
@@ -42,7 +43,8 @@ export default function Signup() {
       {user.error && <div className="alert alert-danger">{user.error}</div>}
       {user.open && (
         <div className="alert alert-info">
-          New account is successfully created. Please Sign In.
+          New account is successfully created. Please{" "}
+          <Link to="/login">Login</Link>.
         </div>
       )}
       {user.loading && (
