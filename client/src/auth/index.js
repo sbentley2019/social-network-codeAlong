@@ -38,11 +38,3 @@ export const isAuthenticated = function () {
     return false;
   }
 };
-
-export const getUser = function (userId) {
-  return axios.get(`/user/${userId}`, {
-    headers: {
-      Authorization: `Bearer ${isAuthenticated().token}`,
-    },
-  });
-};

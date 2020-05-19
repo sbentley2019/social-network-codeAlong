@@ -41,6 +41,15 @@ const Menu = ({ history }) => {
         ) : (
           <>
             <li className="nav-item">
+              <Link
+                className="nav-link"
+                style={selected(history, "/users")}
+                to="/users"
+              >
+                Users
+              </Link>
+            </li>
+            <li className="nav-item">
               <a
                 className="nav-link"
                 style={{ cursor: "pointer", color: "#fff" }}
@@ -52,7 +61,7 @@ const Menu = ({ history }) => {
             <li className="nav-item">
               <Link
                 className="nav-link"
-                style={{ color: "#fff" }}
+                style={selected(history, `/user/${isAuthenticated().user._id}`)}
                 to={`/user/${isAuthenticated().user._id}`}
               >
                 {`${isAuthenticated().user.name}'s profile`}
