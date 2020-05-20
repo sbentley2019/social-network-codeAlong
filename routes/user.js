@@ -7,11 +7,12 @@ const {
   deleteUser,
 } = require("../controllers/user");
 const { requireSignin } = require("../controllers/auth");
+const { userUpdateValidator } = require("../validators");
 
 module.exports = () => {
   router.get("/", allUsers);
   router.get("/:userId", requireSignin, getUser);
-  router.put("/:userId", requireSignin, updateUser);
+  router.put("/:userId", requireSignin, userUpdateValidator, updateUser);
   router.delete("/:userId", requireSignin, deleteUser);
   router.param("userId", userById);
 

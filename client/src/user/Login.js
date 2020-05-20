@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { login, authenticate } from "../auth";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export default function Login() {
+  const history = useHistory();
   const [user, setUser] = useState({
     email: "",
     password: "",
     error: "",
-    redirectToNext: false,
     loading: false,
   });
 
@@ -20,7 +20,8 @@ export default function Login() {
       .then((res) => {
         console.log(res.data);
         authenticate(res.data, () => {
-          setUser({ ...user, redirectToNext: true, loading: false });
+          setUser({ ...user, loading: false });
+          history.push("/");
         });
       })
       .catch((err) => {
@@ -31,10 +32,6 @@ export default function Login() {
   const handleUser = function (e) {
     setUser({ ...user, [e.target.name]: e.target.value, error: "" });
   };
-
-  if (user.redirectToNext) {
-    return <Redirect to="/" />;
-  }
 
   return (
     <div className="container">
