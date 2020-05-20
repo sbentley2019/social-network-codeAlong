@@ -57,7 +57,7 @@ export default function Profile(props) {
               <div className="d-inline-block">
                 <Link
                   className="btn btn-raised btn-success mr-5"
-                  to={`/user/edit/`}
+                  to={`/user/edit/${state.user._id}`}
                 >
                   Edit Profile
                 </Link>
