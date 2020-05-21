@@ -21,11 +21,10 @@ export const remove = function (userId, token) {
 };
 
 export const updateUser = function (userId, token, user) {
-  console.log(userId);
-  console.log("token", token);
   return axios.put(`/user/${userId}`, user, {
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "multipart/form-data",
     },
   });
 };

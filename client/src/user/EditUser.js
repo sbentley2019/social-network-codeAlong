@@ -13,6 +13,7 @@ export default function EditUser(props) {
     password: "",
     loading: false,
     error: "",
+    photo: null,
   });
 
   useEffect(() => {
@@ -32,22 +33,32 @@ export default function EditUser(props) {
       .catch((err) => history.push(`/user/${user.id}`));
   }, [props.match.params.userId]);
 
-  const handleUser = function (e) {
-    setUser({ ...user, [e.target.name]: e.target.value, error: "" });
-  };
-
   const submitForm = function (e) {
     e.preventDefault();
     setUser({ ...user, loading: true });
-    const { name, email, password } = user;
+    let formData = new FormData();
+    for (let i in user) {
+      formData.append(i, user[i]);
+    }
 
-    updateUser(user.id, token, { name, email, password: password || undefined })
+    updateUser(user.id, token, formData)
       .then((res) => {
         history.push(`/user/${user.id}`);
       })
       .catch((err) => {
         setUser({ ...user, error: err.response.data.error, loading: false });
       });
+  };
+
+  const handleUser = function (e) {
+    const name = e.target.name;
+    const value = name === "photo" ? e.target.files[0] : e.target.value;
+
+    setUser({
+      ...user,
+      [name]: value,
+      error: "",
+    });
   };
 
   return (
@@ -60,6 +71,16 @@ export default function EditUser(props) {
         </div>
       )}
       <form onSubmit={submitForm}>
+        <div className="form-group">
+          <label className="text-muted">Profile Photo</label>
+          <input
+            type="file"
+            className="form-control"
+            name="photo"
+            accept="image/*"
+            onChange={(e) => handleUser(e)}
+          />
+        </div>
         <div className="form-group">
           <label className="text-muted">Name</label>
           <input

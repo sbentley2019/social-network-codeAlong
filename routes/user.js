@@ -12,7 +12,8 @@ const { userUpdateValidator } = require("../validators");
 module.exports = () => {
   router.get("/", allUsers);
   router.get("/:userId", requireSignin, getUser);
-  router.put("/:userId", requireSignin, userUpdateValidator, updateUser);
+  // router.put("/:userId", requireSignin, userUpdateValidator, updateUser);
+  router.put("/:userId", requireSignin, updateUser);
   router.delete("/:userId", requireSignin, deleteUser);
   router.param("userId", userById);
 
