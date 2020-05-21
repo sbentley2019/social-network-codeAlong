@@ -14,12 +14,24 @@ export default function MainRouter() {
     <div>
       <Menu />
       <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/users" component={Users} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/login" component={Login} />
-        <PrivateRoute exact path="/user/edit/:userId" component={EditUser} />
-        <PrivateRoute exact path="/user/:userId" component={Profile} />
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/users">
+          <Users />
+        </Route>
+        <Route exact path="/signup">
+          <Signup />
+        </Route>
+        <Route exact path="/login">
+          <Login />
+        </Route>
+        <PrivateRoute exact path="/user/edit/:userId">
+          <EditUser />
+        </PrivateRoute>
+        <PrivateRoute exact path="/user/:userId">
+          <Profile />
+        </PrivateRoute>
       </Switch>
     </div>
   );

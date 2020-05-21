@@ -21,8 +21,8 @@ exports.createPostValidator = (req, res, next) => {
 exports.userSignupValidator = (req, res, next) => {
   req.check("name", "Name is required").notEmpty();
   req
-    .check("name", "Name must be between 4-20 characters")
-    .isLength({ min: 4, max: 20 });
+    .check("name", "Name must be between 3-20 characters")
+    .isLength({ min: 3, max: 20 });
 
   req.check("email", "Email is required").notEmpty();
   req
@@ -50,8 +50,8 @@ exports.userSignupValidator = (req, res, next) => {
 exports.userUpdateValidator = (req, res, next) => {
   req.check("name", "Name is required").notEmpty();
   req
-    .check("name", "Name must be between 4-20 characters")
-    .isLength({ min: 4, max: 20 });
+    .check("name", "Name must be between 3-20 characters")
+    .isLength({ min: 3, max: 20 });
 
   req.check("email", "Email is required").notEmpty();
   req

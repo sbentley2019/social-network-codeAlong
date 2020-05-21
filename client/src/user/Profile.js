@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { isAuthenticated } from "../auth";
 import { getUser } from "./apiUser";
-import { Redirect, Link } from "react-router-dom";
+import { Redirect, Link, useParams } from "react-router-dom";
 import user_avatar from "../images/user_avatar.png";
 import DeleteUser from "./DeleteUser";
 
@@ -11,9 +11,10 @@ export default function Profile(props) {
     redirectToLogin: false,
     loading: false,
   });
+  let params = useParams();
 
   useEffect(() => {
-    const userId = props.match.params.userId;
+    const userId = params.userId;
     const token = isAuthenticated().token;
     setState({ ...state, loading: true });
     getUser(userId, token)
@@ -22,7 +23,7 @@ export default function Profile(props) {
         setState({ ...state, user: res.data, loading: false });
       })
       .catch((err) => setState({ ...state, redirectToLogin: true }));
-  }, [props.match.params.userId]);
+  }, [params.userId]);
 
   if (state.redirectToLogin) {
     return <Redirect to="/login" />;
