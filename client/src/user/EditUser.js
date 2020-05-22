@@ -15,7 +15,7 @@ export default function EditUser(props) {
     password: "",
     loading: false,
     error: "",
-    photo: null,
+    photo: "",
     fileSize: 0,
   });
 
@@ -69,7 +69,7 @@ export default function EditUser(props) {
     console.log("user", user);
     let formData = new FormData();
     for (let i in user) {
-      if (i === "password" && user[i].length === 0) {
+      if ((i === "password" || i === "photo") && user[i].length === 0) {
         continue;
       }
       formData.append(i, user[i]);
@@ -100,7 +100,7 @@ export default function EditUser(props) {
   };
 
   const photoUrl = user.id
-    ? `http://localhost:3001/user/photo/${user.id}`
+    ? `http://localhost:3001/user/photo/${user.id}?${new Date().getTime()}`
     : user_avatar;
 
   return (
@@ -112,7 +112,13 @@ export default function EditUser(props) {
           <h2>Loading...</h2>
         </div>
       )}
-      <img src={photoUrl} alt={user.name} />
+      <img
+        style={{ height: "200px", width: "auto" }}
+        className="img-thumbnail"
+        src={photoUrl}
+        onError={(e) => (e.target.src = user_avatar)}
+        alt={user.name}
+      />
       <form onSubmit={submitForm}>
         <div className="form-group">
           <label className="text-muted">Profile Photo</label>

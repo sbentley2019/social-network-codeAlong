@@ -5,7 +5,7 @@ import { list } from "./apiUser";
 import user_avatar from "../images/user_avatar.png";
 
 export default function Users() {
-  const [state, setState] = useState({ users: [] });
+  const [state, setState] = useState({ users: [], images: {} });
 
   useEffect(() => {
     list()
@@ -23,10 +23,11 @@ export default function Users() {
           return (
             <div className="card col-md-4" key={index}>
               <img
-                className="card-img-top"
-                src={user_avatar}
+                style={{ height: "200px", width: "auto" }}
+                className="img-thumbnail"
+                src={`http://localhost:3001/user/photo/${user._id}`}
+                onError={(e) => (e.target.src = user_avatar)}
                 alt={user.name}
-                style={{ width: "100%", height: "15vw", objectFit: "contain" }}
               />
               <div className="card-body">
                 <h5 className="card-title">{user.name}</h5>

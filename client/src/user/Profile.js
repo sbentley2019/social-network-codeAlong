@@ -29,16 +29,23 @@ export default function Profile(props) {
     return <Redirect to="/login" />;
   }
 
+  const photoUrl = state.user._id
+    ? `http://localhost:3001/user/photo/${
+        state.user._id
+      }?${new Date().getTime()}`
+    : user_avatar;
+
   return (
     <div className="container">
       <h2 className="mt-5 mb-5">Profile</h2>
       <div className="row">
         <div className="col-md-6">
           <img
-            className="card-img-top"
-            src={user_avatar}
+            style={{ height: "200px", width: "auto" }}
+            className="img-thumbnail"
+            src={photoUrl}
+            onError={(e) => (e.target.src = user_avatar)}
             alt={state.user.name}
-            style={{ width: "100%", height: "15vw", objectFit: "cover" }}
           />
         </div>
         <div className="col-md-6">
