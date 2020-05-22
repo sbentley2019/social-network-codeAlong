@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { getUser, updateUser } from "./apiUser";
 import { isAuthenticated } from "../auth";
 import { useHistory, useParams } from "react-router-dom";
+import user_avatar from "../images/user_avatar.png";
 
 export default function EditUser(props) {
   const token = isAuthenticated().token;
@@ -98,6 +99,10 @@ export default function EditUser(props) {
     }
   };
 
+  const photoUrl = user.id
+    ? `http://localhost:3001/user/photo/${user.id}`
+    : user_avatar;
+
   return (
     <div className="container">
       <h2 className="mt-5 mb-5">Edit Profile </h2>
@@ -107,6 +112,7 @@ export default function EditUser(props) {
           <h2>Loading...</h2>
         </div>
       )}
+      <img src={photoUrl} alt={user.name} />
       <form onSubmit={submitForm}>
         <div className="form-group">
           <label className="text-muted">Profile Photo</label>
