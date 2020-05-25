@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { getUser, updateUser } from "./apiUser";
+import { getUser, update, updateUser } from "./apiUser";
 import { isAuthenticated } from "../auth";
 import { useHistory, useParams } from "react-router-dom";
 import user_avatar from "../images/user_avatar.png";
@@ -42,21 +42,26 @@ export default function EditUser(props) {
   const isValid = function () {
     const { name, email, password, fileSize } = user;
     if (fileSize > 100000) {
-      setUser({ ...user, error: "File size should be less than 100kb" });
+      setUser({
+        ...user,
+        error: "File size should be less than 100kb",
+        loading: false,
+      });
       return false;
     }
     if (name.length === 0) {
-      setUser({ ...user, error: "Name is required" });
+      setUser({ ...user, error: "Name is required", loading: false });
       return false;
     }
     if (!/^\w+([/.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)) {
-      setUser({ ...user, error: "A valid Email is required" });
+      setUser({ ...user, error: "A valid Email is required", loading: false });
       return false;
     }
     if (password.length >= 1 && password.length <= 5) {
       setUser({
         ...user,
         error: "Password must be at least 6 characters long",
+        loading: false,
       });
       return false;
     }
@@ -69,7 +74,7 @@ export default function EditUser(props) {
     if (!isValid()) {
       return;
     }
-    console.log("user", user);
+
     let formData = new FormData();
     for (let i in user) {
       if (
@@ -81,9 +86,9 @@ export default function EditUser(props) {
       formData.append(i, user[i]);
     }
 
-    updateUser(user.id, token, formData)
+    update(user.id, token, formData)
       .then((res) => {
-        history.push(`/user/${user.id}`);
+        updateUser(res.data, () => history.push(`/user/${user.id}`));
       })
       .catch((err) => {
         setUser({ ...user, error: err.response.data.error, loading: false });
@@ -175,6 +180,12 @@ export default function EditUser(props) {
             </div>
             <button type="submit" className="btn btn-raised btn-primary">
               Update
+            </button>
+            <button
+              className="btn btn-raised btn-danger ml-5"
+              onClick={() => history.push(`/user/${userId}`)}
+            >
+              Cancel
             </button>
           </form>
         </>
