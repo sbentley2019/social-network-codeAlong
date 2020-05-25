@@ -5,6 +5,7 @@ import { Link, useParams, useHistory } from "react-router-dom";
 import user_avatar from "../images/user_avatar.png";
 import DeleteUser from "./DeleteUser";
 import FollowUserButton from "./FollowUserButton";
+import ProfileTabs from "./ProfileTabs";
 
 export default function Profile() {
   const [state, setState] = useState({
@@ -98,6 +99,11 @@ export default function Profile() {
             <div className="col md-12 mt-5 mb-5">
               <hr />
               <p className="lead">{state.user.about}</p>
+              <hr />
+              <ProfileTabs
+                followers={state.user.followers}
+                following={state.user.following}
+              />
             </div>
           </div>
         </>
