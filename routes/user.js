@@ -6,6 +6,10 @@ const {
   updateUser,
   deleteUser,
   userPhoto,
+  addFollowing,
+  addFollower,
+  removeFollowing,
+  removeFollower,
 } = require("../controllers/user");
 const { requireSignin } = require("../controllers/auth");
 
@@ -15,6 +19,8 @@ module.exports = () => {
   router.put("/:userId", requireSignin, updateUser);
   router.delete("/:userId", requireSignin, deleteUser);
   router.get("/photo/:userId", userPhoto);
+  router.put("/follow", requireSignin, addFollowing, addFollower);
+  router.put("/unfollow", requireSignin, removeFollowing, removeFollower);
   router.param("userId", userById);
 
   return router;
