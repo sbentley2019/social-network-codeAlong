@@ -39,3 +39,27 @@ export const updateUser = function (user, next) {
     }
   }
 };
+
+export const follow = function (userId, token, followId) {
+  return axios.put(
+    `/user/follow`,
+    { userId, followId },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};
+
+export const unfollow = function (userId, token, unfollowId) {
+  return axios.put(
+    `/user/unfollow`,
+    { userId, unfollowId },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  );
+};

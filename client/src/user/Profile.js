@@ -1,33 +1,53 @@
 import React, { useState, useEffect } from "react";
 import { isAuthenticated } from "../auth";
 import { getUser } from "./apiUser";
-import { Redirect, Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import user_avatar from "../images/user_avatar.png";
 import DeleteUser from "./DeleteUser";
+import FollowUserButton from "./FollowUserButton";
 
-export default function Profile(props) {
+export default function Profile() {
   const [state, setState] = useState({
-    user: {},
-    redirectToLogin: false,
+    user: { followers: [], following: [] },
     loading: false,
+    following: false,
   });
+  let history = useHistory();
   let params = useParams();
   const userId = params.userId;
+
+  const checkFollow = function (user) {
+    const jwt = isAuthenticated();
+    const match = user.followers.find(
+      (follower) => follower._id === jwt.user._id
+    );
+    return match;
+  };
 
   useEffect(() => {
     const token = isAuthenticated().token;
     setState({ ...state, loading: true });
     getUser(userId, token)
       .then((res) => {
-        console.log("res:", res);
-        setState({ ...state, user: res.data, loading: false });
+        const following = checkFollow(res.data);
+        setState({ ...state, user: res.data, loading: false, following });
       })
-      .catch((err) => setState({ ...state, redirectToLogin: true }));
+      .catch((err) => history.push("/login"));
   }, [params.userId]);
 
-  if (state.redirectToLogin) {
-    return <Redirect to="/login" />;
-  }
+  const clickFollowButton = function (callApi) {
+    const userId = isAuthenticated().user._id;
+    const token = isAuthenticated().token;
+    callApi(userId, token, state.user._id)
+      .then((res) => {
+        setState({
+          ...state,
+          user: res.data,
+          following: !state.following,
+        });
+      })
+      .catch((err) => setState({ ...state, error: err.response.data.error }));
+  };
 
   return (
     <div className="container">
@@ -64,6 +84,13 @@ export default function Profile(props) {
                     </Link>
                     <DeleteUser userId={state.user._id} />
                   </div>
+                )}
+              {isAuthenticated().user &&
+                isAuthenticated().user._id !== state.user._id && (
+                  <FollowUserButton
+                    following={state.following}
+                    onButtonClick={clickFollowButton}
+                  />
                 )}
             </div>
           </div>
