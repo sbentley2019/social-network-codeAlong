@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "concurrently \"nodemon server.js\" \"cd client && npm start\""
+    "dev": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
+    "start": "node ./server.js"
+    "heroku-postbuild": "cd ./client && npm install && npm run build"
   },
   "repository": {
     "type": "git",
@@ -33,5 +35,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^2.0.3",
     "uuid": "^8.0.0"
+  },
+  "engines": {
+    "node": "10.16.1"
   }
 }
