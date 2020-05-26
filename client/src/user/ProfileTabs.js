@@ -8,7 +8,14 @@ export default function ProfileTabs(props) {
       <div>
         <h3 className="text-primary">Followers</h3>
         <hr />
-        <ul style={{ display: "flex", listStyle: "none", paddingLeft: "0" }}>
+        <ul
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            listStyle: "none",
+            paddingLeft: "0",
+          }}
+        >
           {props.followers.map((person, i) => {
             return (
               <li key={i} className="m-5">
@@ -36,7 +43,14 @@ export default function ProfileTabs(props) {
       <div>
         <h3 className="text-primary">Following</h3>
         <hr />
-        <ul style={{ display: "flex", listStyle: "none", paddingLeft: "0" }}>
+        <ul
+          style={{
+            display: "flex",
+            flexWrap: "wrap",
+            listStyle: "none",
+            paddingLeft: "0",
+          }}
+        >
           {props.following.map((person, i) => {
             return (
               <li key={i} className="m-5">
