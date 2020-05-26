@@ -8,9 +8,8 @@ const cookieParser = require("cookie-parser");
 const expressValidator = require("express-validator");
 const fs = require("fs");
 const cors = require("cors");
-const dotenv = require("dotenv");
-dotenv.config();
 
+const ENV = require("./environment");
 const PORT = process.env.PORT || 3001;
 
 mongoose
