@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "concurrently \"nodemon server.js\" \"cd client && npm start\"",
-    "start": "node ./server.js"
+    "start": "node ./server.js",
     "heroku-postbuild": "cd ./client && npm install && npm run build"
   },
   "repository": {
@@ -34,6 +34,7 @@
     "mongoose": "^5.9.13",
     "morgan": "^1.10.0",
     "nodemon": "^2.0.3",
+    "path": "^0.12.7",
     "uuid": "^8.0.0"
   },
   "engines": {
