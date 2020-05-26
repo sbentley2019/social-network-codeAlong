@@ -6,6 +6,10 @@ Social Connect is a simple social media app built using the MERN stack (Reactjs,
 
 In progress - May 26, 2020
 
+## Deployment
+
+Deployed on heroku at <https://agile-hamlet-08027.herokuapp.com/>
+
 ## Screenshots
 
 ## Getting Started
