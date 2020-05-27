@@ -33,7 +33,7 @@ app.use(cookieParser());
 app.use(expressValidator());
 app.use(cors());
 
-app.get("/", (req, res) => {
+app.get("/api", (req, res) => {
   fs.readFile("./docs/apiDocs.json", (err, data) => {
     if (err) {
       return res.status(400).json({
