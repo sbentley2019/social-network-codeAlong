@@ -12,21 +12,20 @@ export default function ProfileTabs(props) {
           {props.followers.map((person, i) => {
             return (
               <div key={i} className="row">
-                <Link to={`/user/${person._id}`}>
+                <Link to={`/user/${person._id}`} style={{ display: "flex" }}>
                   <img
                     className="float-left mr-2"
                     height="50px"
+                    width="50px"
                     src={`http://localhost:3001/user/photo/${person._id}`}
                     onError={(e) => (e.target.src = user_avatar)}
                     alt={person.name}
+                    style={{ borderRadius: "50%", border: "1px solid black" }}
                   />
                   <div>
-                    <h3>{person.name}</h3>
+                    <p className="lead">{person.name}</p>
                   </div>
                 </Link>
-                <p style={{ clear: "both", textAlign: "center" }}>
-                  {person.about}
-                </p>
               </div>
             );
           })}
@@ -37,22 +36,21 @@ export default function ProfileTabs(props) {
           <hr />
           {props.following.map((person, i) => {
             return (
-              <div key={i} className="row">
-                <Link to={`/user/${person._id}`}>
+              <div key={i}>
+                <Link to={`/user/${person._id}`} style={{ display: "flex" }}>
                   <img
-                    className="float-left mr-2"
+                    className="mr-2"
                     height="50px"
+                    width="50px"
                     src={`http://localhost:3001/user/photo/${person._id}`}
                     onError={(e) => (e.target.src = user_avatar)}
                     alt={person.name}
+                    style={{ borderRadius: "50%", border: "1px solid black" }}
                   />
                   <div>
-                    <h3>{person.name}</h3>
+                    <p className="lead">{person.name}</p>
                   </div>
                 </Link>
-                <p style={{ clear: "both", textAlign: "center" }}>
-                  {person.about}
-                </p>
               </div>
             );
           })}
@@ -63,73 +61,4 @@ export default function ProfileTabs(props) {
       </div>
     </div>
   );
-  // return (
-  //   <>
-  //     <div>
-  //       <h3 className="text-primary">Followers</h3>
-  //       <hr />
-  //       <ul
-  //         style={{
-  //           display: "flex",
-  //           flexWrap: "wrap",
-  //           listStyle: "none",
-  //           paddingLeft: "0",
-  //         }}
-  //       >
-  //         {props.followers.map((person, i) => {
-  //           return (
-  //             <li key={i} className="m-5">
-  //               <Link to={`/user/${person._id}`}>
-  //                 <figure
-  //                   style={{
-  //                     height: "200px",
-  //                     width: "200px",
-  //                   }}
-  //                 >
-  //                   <img
-  //                     src={`http://localhost:3001/user/photo/${person._id}`}
-  //                     alt={person.name}
-  //                     className="img-thumbnail"
-  //                     onError={(e) => (e.target.src = user_avatar)}
-  //                   />
-  //                   <figcaption>{person.name}</figcaption>
-  //                 </figure>
-  //               </Link>
-  //             </li>
-  //           );
-  //         })}
-  //       </ul>
-  //     </div>
-  //     <div>
-  //       <h3 className="text-primary">Following</h3>
-  //       <hr />
-  //       <ul
-  //         style={{
-  //           display: "flex",
-  //           flexWrap: "wrap",
-  //           listStyle: "none",
-  //           paddingLeft: "0",
-  //         }}
-  //       >
-  //         {props.following.map((person, i) => {
-  //           return (
-  //             <li key={i} className="m-5">
-  //               <Link to={`/user/${person._id}`}>
-  //                 <figure style={{ height: "200px", width: "200px" }}>
-  //                   <img
-  //                     src={`http://localhost:3001/user/photo/${person._id}`}
-  //                     alt={person.name}
-  //                     className="img-thumbnail"
-  //                     onError={(e) => (e.target.src = user_avatar)}
-  //                   />
-  //                   <figcaption>{person.name}</figcaption>
-  //                 </figure>
-  //               </Link>
-  //             </li>
-  //           );
-  //         })}
-  //       </ul>
-  //     </div>
-  //   </>
-  // );
 }

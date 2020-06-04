@@ -77,10 +77,7 @@ export default function EditUser(props) {
 
     let formData = new FormData();
     for (let i in user) {
-      if (
-        (i === "password" || i === "photo" || i === "about") &&
-        user[i].length === 0
-      ) {
+      if ((i === "password" || i === "photo") && user[i].length === 0) {
         continue;
       }
       formData.append(i, user[i]);
