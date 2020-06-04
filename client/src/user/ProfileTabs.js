@@ -15,8 +15,8 @@ export default function ProfileTabs(props) {
                 <Link to={`/user/${person._id}`} style={{ display: "flex" }}>
                   <img
                     className="float-left mr-2"
-                    height="50px"
-                    width="50px"
+                    height="25px"
+                    width="25px"
                     src={`http://localhost:3001/user/photo/${person._id}`}
                     onError={(e) => (e.target.src = user_avatar)}
                     alt={person.name}
@@ -40,8 +40,8 @@ export default function ProfileTabs(props) {
                 <Link to={`/user/${person._id}`} style={{ display: "flex" }}>
                   <img
                     className="mr-2"
-                    height="50px"
-                    width="50px"
+                    height="25px"
+                    width="25px"
                     src={`http://localhost:3001/user/photo/${person._id}`}
                     onError={(e) => (e.target.src = user_avatar)}
                     alt={person.name}
