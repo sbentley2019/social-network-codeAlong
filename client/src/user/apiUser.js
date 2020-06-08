@@ -63,3 +63,11 @@ export const unfollow = function (userId, token, unfollowId) {
     }
   );
 };
+
+export const findPeople = function (userId, token) {
+  return axios.get(`/user/findPeople/${userId}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+};

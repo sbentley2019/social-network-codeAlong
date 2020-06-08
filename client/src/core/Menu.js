@@ -50,13 +50,13 @@ const Menu = ({ history }) => {
         ) : (
           <>
             <li className="nav-item">
-              <span
+              <Link
                 className="nav-link"
-                style={{ cursor: "pointer", color: "#fff" }}
-                onClick={() => logout(() => history.push("/login"))}
+                style={selected(history, "/findPeople")}
+                to={"/findPeople"}
               >
-                Logout
-              </span>
+                Find People
+              </Link>
             </li>
             <li className="nav-item">
               <Link
@@ -66,6 +66,15 @@ const Menu = ({ history }) => {
               >
                 {`${isAuthenticated().user.name}'s profile`}
               </Link>
+            </li>
+            <li className="nav-item">
+              <span
+                className="nav-link"
+                style={{ cursor: "pointer", color: "#fff" }}
+                onClick={() => logout(() => history.push("/login"))}
+              >
+                Logout
+              </span>
             </li>
           </>
         )}

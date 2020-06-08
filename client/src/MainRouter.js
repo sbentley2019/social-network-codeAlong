@@ -8,6 +8,7 @@ import Profile from "./user/Profile";
 import Users from "./user/Users";
 import EditUser from "./user/EditUser";
 import PrivateRoute from "./auth/PrivateRoute";
+import FindPeople from "./user/FindPeople";
 
 export default function MainRouter() {
   return (
@@ -28,6 +29,9 @@ export default function MainRouter() {
         </Route>
         <PrivateRoute exact path="/user/edit/:userId">
           <EditUser />
+        </PrivateRoute>
+        <PrivateRoute exact path="/findPeople">
+          <FindPeople />
         </PrivateRoute>
         <PrivateRoute exact path="/user/:userId">
           <Profile />
