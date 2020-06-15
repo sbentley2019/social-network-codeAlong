@@ -4,7 +4,7 @@ Social Connect is a simple social media app built using the MERN stack (Reactjs,
 
 ## Status
 
-In progress - May 26, 2020
+In progress
 
 ## Deployment
 
